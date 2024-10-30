@@ -1,8 +1,10 @@
 from flask import Flask
 from flask_jwt_extended import JWTManager
 from config import Config
-from src.models.models import db
+from src.models import db
 from src.routes.clients import client_bp
+from src.routes.meetings.routes import meeting_bp
+
 
 app = Flask(__name__)
 app.config.from_object(Config)
@@ -14,6 +16,8 @@ jwt = JWTManager(app)
 # Enregistrer les blueprints
 
 app.register_blueprint(client_bp,url_prefix="/clients")
+app.register_blueprint(meeting_bp, url_prefix="/api")
+
 
 
 @app.route('/')
