@@ -6,3 +6,4 @@ class Meeting(db.Model):
     date = db.Column(db.Date, nullable=False)
     heure = db.Column(db.Time, nullable=False)  
     cab = db.Column(db.String(100), nullable=False)
+    id_client = db.Column(db.Integer, db.ForeignKey('client.id'), nullable=False)

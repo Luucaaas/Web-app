@@ -72,3 +72,30 @@ def update_client(id):
     db.session.commit()
 
     return jsonify({"message": "Client mis à jour avec succès"}), 200
+
+
+@client_bp.route("/", methods=['GET'])
+def get_all_clients():
+    clients = Client.query.all()
+    clients_data = [{"id": client.id, "nom": client.nom, "prenom": client.prenom, "birthdate": client.birthdate, 
+                     "email": client.email, "telephone": client.telephone, "doc": client.doc} 
+                    for client in clients]
+    return jsonify(clients_data), 200
+
+
+@client_bp.route("/<int:id>", methods=['GET'])
+def get_client_by_id(id):
+    client = Client.query.get(id)
+    if client is None:
+        return jsonify({"message": "Client non trouvé"}), 404
+
+    client_data = {
+        "id": client.id,
+        "nom": client.nom,
+        "prenom": client.prenom,
+        "birthdate": client.birthdate,
+        "email": client.email,
+        "telephone": client.telephone,
+        "doc": client.doc
+    }
+    return jsonify(client_data), 200

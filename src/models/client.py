@@ -9,4 +9,5 @@ class Client(db.Model):
     email = db.Column(db.String(120))
     telephone = db.Column(db.String(20))
     doc = db.Column(db.Text)
-
+    
+    meetings = db.relationship('Meeting', backref='client', lazy=True)
